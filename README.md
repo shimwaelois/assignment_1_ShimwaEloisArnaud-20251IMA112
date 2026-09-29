@@ -18,22 +18,22 @@ Sunrise Supermarket sells products to customers, who place orders containing one
 
 ### Q1. Orders with customer name, city, date (INNER JOIN)
 Links each order to the customer who placed it. Only orders with a matching customer appear.
-![Q1A](screenshots/Q1A.png)
+![Q1A](Q1A.png)
 
-![Q1B](screenshots/Q1B.png)
+![Q1B](Q1B.png)
 ### Q2. Order items with product details (JOIN)
 Shows what was bought in each order line, with product name, category, price and quantity.
-![Q2A](screenshots/Q2A.png)
+![Q2A](Q2A.png)
 
-![Q2B](screenshots/Q2B.png)
+![Q2B](Q2B.png)
 
-![Q2C](screenshots/Q2C.png)
+![Q2C](Q2C.png)
 
 ### Q3. All customers and their orders (LEFT JOIN)
 Keeps every customer, even those with no orders. **Frank Niyonzima** appears with NULL order columns because he has never ordered.
-![Q3A](screenshots/Q3A.png)
+![Q3A](Q3A.png)
 
-![Q3B](screenshots/Q3B.png)
+![Q3B](Q3B.png)
 ### Q4. Customers who spent above average (CTE)
 A CTE (`customer_totals`) computes each customer's total (quantity × price). The main query keeps those above the average of those totals.
 
@@ -43,7 +43,7 @@ A CTE (`customer_totals`) computes each customer's total (quantity × price). Th
 | Brian Mugisha | 43,000 |
 
 Average customer spend = 37,720 (among customers who ordered).
-![Q4](screenshots/Q4.png)
+![Q4](Q4.png)
 
 ### Q5. Rank customers by total spent (RANK)
 Uses `RANK() OVER (ORDER BY total_spent DESC)` on the CTE totals.
@@ -56,18 +56,18 @@ Uses `RANK() OVER (ORDER BY total_spent DESC)` on the CTE totals.
 | 4 | Esther Mukamana | 27,500 |
 | 5 | Chantal Ingabire | 24,100 |
 
-![Q5](screenshots/Q5.png)
+![Q5](Q5.png)
 
 ### Q6. Number each customer's orders (ROW_NUMBER)
 `ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY order_date)` restarts at 1 for each customer, giving their 1st, 2nd, 3rd order and so on.
-![Q6A](screenshots/Q6A.png)
+![Q6A](Q6A.png)
 
-![Q6B](screenshots/Q6B.png)
+![Q6B](Q6B.png)
 ### Q7. Running total of revenue (SUM OVER)
 Order revenue is computed in a CTE, then `SUM(order_total) OVER (ORDER BY order_date, order_id)` accumulates it. Revenue grows from 22,800 (5 Jan) to **188,600** by 6 May 2026.
-![Q7A](screenshots/Q7A.png)
+![Q7A](Q7A.png)
 
-![Q7B](screenshots/Q7B.png)
+![Q7B](Q7B.png)
 
 ### Q8. Days between consecutive orders (LAG)
 `LAG(order_date)` per customer gives the previous order date; subtracting it from the current date gives the gap in days. First orders are excluded, so only customers with 2+ orders appear.
@@ -85,7 +85,7 @@ Order revenue is computed in a CTE, then `SUM(order_total) OVER (ORDER BY order_
 | David Habimana | 15 | 49 |
 | Esther Mukamana | 13 | 42 |
 
-![Q8](screenshots/Q8.png)
+![Q8](Q8.png)
 
 ## Business interpretation
 - **Customers:** Alice (57,300) and Brian (43,000) are the top spenders and the only two above the 37,720 average. Alice is also the most frequent buyer (4 orders). Together they account for over half of total revenue (188,600).
